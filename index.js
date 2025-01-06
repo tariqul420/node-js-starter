@@ -62,7 +62,7 @@ async function run() {
             const user = await usersCollection.findOne(query)
             const isAdmin = user?.role === 'admin';
             if (!isAdmin) {
-                res.status(403).send({ message: 'forbidden access' });
+                return res.status(403).send({ message: 'forbidden access' });
             }
             next()
         }
@@ -97,6 +97,7 @@ async function run() {
             }
         })
 
+        // post single user
         app.post('/users', async (req, res) => {
             try {
                 const user = req.body
@@ -108,6 +109,7 @@ async function run() {
             }
         })
 
+        // get all user
         app.get('/users', async (req, res) => {
             try {
                 const result = await usersCollection.find().toArray()
@@ -115,6 +117,22 @@ async function run() {
             } catch (error) {
                 console.error('Get User:', error.message)
                 res.status(500).send({ error: 'Failed to get user' })
+            }
+        })
+
+        // Check admin
+        app.get('/users/admin/:email', verifyToken, verifyAdmin, async (req, res) => {
+            try {
+                const email = req.params.email
+
+                if (req?.user?.email !== email) {
+                    return res.status(403).send({ message: 'forbidden access' });
+                }
+
+                res.send({ admin: true })
+            } catch (error) {
+                console.error('Check Admin:', error.message)
+                res.status(500).send({ error: 'Failed to check admin' })
             }
         })
 
