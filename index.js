@@ -97,26 +97,22 @@ async function run() {
             }
         })
 
-        // post single user
+        // post single user in the database
         app.post('/users', async (req, res) => {
             try {
                 const user = req.body
+
+                const isExist = await usersCollection.findOne({ email: user?.email })
+
+                if (isExist) {
+                    return res.send(isExist)
+                }
+
                 const result = await usersCollection.insertOne(user)
                 res.send(result)
             } catch (error) {
                 console.error('Post User:', error.message)
                 res.status(500).send({ error: 'Failed to post user' })
-            }
-        })
-
-        // get all user
-        app.get('/users', async (req, res) => {
-            try {
-                const result = await usersCollection.find().toArray()
-                res.send(result)
-            } catch (error) {
-                console.error('Get User:', error.message)
-                res.status(500).send({ error: 'Failed to get user' })
             }
         })
 
