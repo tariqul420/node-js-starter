@@ -61,8 +61,8 @@ async function run() {
             const query = { email };
             const user = await usersCollection.findOne(query)
             const isAdmin = user?.role === 'admin';
-            if (!isAdmin) {
-                return res.status(403).send({ message: 'forbidden access' });
+            if (!user || !isAdmin) {
+                return res.status(403).send({ message: 'forbidden access. only access admin!' });
             }
             next()
         }
