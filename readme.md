@@ -36,8 +36,8 @@ The repository contains two main directories:
 
 ## 🔗 Repository Links
 
-- **Frontend Repository**: This repository serves as the main full-stack setup and includes the frontend setup.
-- **Backend Repository**: [_Backend Repo_](https://github.com/tariqul420/Full-Stack_Server_Setup.git)
+- **Frontend Repository**: [_Frontend Repo_](https://github.com/tariqul420/Full-Stack_Setup.git)
+- **Backend Repository**: This repository serves as the main full-stack setup and includes the backend/server setup.
 
 ---
 
