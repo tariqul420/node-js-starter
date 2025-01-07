@@ -1,11 +1,11 @@
 ## Installation
 
 ```bash
-git clone https://github.com/programming-hero-web-course2/b10a11-server-side-tariqul420.git
+git clone https://github.com/tariqul420/Full-Stack_Server_Setup.git
 ```
 
 ```bash
-cd b10a11-server-side-tariqul420
+cd Full-Stack_Server_Setup
 ```
 
 ```bash
@@ -19,3 +19,13 @@ code .
 ```bash
 node index.js
 ```
+
+**or**
+
+```bash
+nodemon index.js
+```
+
+## .env & mongodb
+
+**When your work must be change .env file & mongodb uri string?**
