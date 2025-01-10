@@ -1,123 +1,74 @@
-# 🚀 Full-Stack Setup for Any web Application
+# 🚀 Full-Stack Setup Server for Any Web Application
 
-A boilerplate setup for starting any modern web application, including a React-based frontend and an Express.js backend. This setup integrates essential tools and libraries for efficient development and scalability.
-
----
-
-## 📂 Project Structure
-
-The repository contains two main directories:
-
-- **Frontend**: Built with React, Tailwind CSS, and Vite for fast development and a responsive UI.
-- **Backend**: Powered by Express.js, MongoDB, and essential middleware for secure and scalable APIs.
+This server is built using **Node.js**, **Express**, and **MongoDB**, with JWT-based authentication and admin role management. It's designed for full-stack web applications and includes robust middleware configurations for security and scalability.
 
 ---
 
-## 🛠 Features
+## Features
 
-### Frontend
-
-- **React** for building interactive UIs.
-- **React Router** for dynamic navigation.
-- **Firebase** for authentication and hosting.
-- **Axios** for API calls.
-- **React Hook Form** for form handling.
-- **Tailwind CSS** for a responsive design.
-- **React Query** for server-state management.
-
-### Backend
-
-- **Express.js** for creating APIs.
-- **MongoDB** for database management.
-- **JWT** for secure authentication.
-- **CORS** and **cookie-parser** for handling cross-origin and cookie-based requests.
+- 🛡️ **JWT Authentication**: Secure your endpoints with token-based authentication.
+- 🔑 **Admin Role Management**: Restrict specific routes to admin users only.
+- 🍪 **Cookie Handling**: Easily manage cookies for session persistence.
+- 🗂️ **MongoDB Integration**: Seamlessly store and query data from MongoDB.
+- 🌐 **CORS Configuration**: Allow cross-origin requests for specified domains.
+- 📦 **Environment Variables**: Keep sensitive data secure.
 
 ---
 
 ## 🔗 Repository Links
 
 - **Frontend Repository**: [_Frontend Repo_](https://github.com/tariqul420/Full-Stack_Setup.git)
-- **Backend Repository**: This repository serves as the main full-stack setup and includes the backend/server setup.
+- **Backend Repository**: This repository serves as the main full-stack setup and includes the `backend` setup.
 
 ---
 
-## 🚀 Getting Started
+## Prerequisites
 
-### Prerequisites
+Before running the server, ensure you have the following installed:
 
-- Node.js installed on your system.
-- MongoDB setup for database functionality.
+- **Node.js** (v16 or higher recommended)
+- **MongoDB** (Cloud or Local Instance)
+- **npm** (Comes with Node.js)
 
 ---
 
-### Setup Instructions
+## Installation
 
-#### Frontend
-
-1. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/tariqul420/Full-Stack_Setup.git
-
-   ```
-
-2. **Navigate to the project directory**:
-
-   ```bash
-   git clone Full-Stack_Setup
-
-   ```
-
-3. **Install dependencies**:
-
-   ```bash
-   npm install
-
-   ```
-
-4. **Start the development server**:
-   ```bash
-   npm run dev
-   ```
-
-#### Backend/Server
-
-1. **Clone the repository**:
+1. Clone the client-side repository:
 
    ```bash
    git clone https://github.com/tariqul420/Full-Stack_Server_Setup.git
-
+   cd Service-Orbit-Server
    ```
 
-2. **Navigate to the project directory**:
-
-   ```bash
-   git clone Full-Stack_Server_Setup
-
-   ```
-
-3. **Install dependencies**:
+2. Install dependencies:
 
    ```bash
    npm install
-
    ```
 
-4. **Start the development server**:
+3. Start the server:
+
    ```bash
-   node start
+   node index.js
    ```
 
-### or
+   --- OR ---
 
-```bash
-nodemon start
-```
+   > **Note** Note: Ensure `nodemon` is installed globally or locally in your project. To install it globally, run:
 
----
+   ```bash
+   nodemon index.js
+   ```
 
-## .env (force)
-
-**When your work must be change .env file?**
-
-- **When you commit your repository .env add in .gitignore file**
+4. Open the project in a code editor:
+   ```bash
+   code .
+   ```
+5. Add the `.env` file in the root directory and include the following environment variables:
+   ```bash
+   DATABASE_USERNAME=YOUR_DATABASE_USERNAME
+   DATABASE_PASSWORD=YOUR_DATABASE_PASSWORD
+   ACCESS_TOKEN_SECRET=YOUR_ACCESS_TOKEN_SECRET
+   ```
+   > **Note:** Replace the `index.js` file's `your_mongo_connection_string` and the `.env` file's `YOUR_DATABASE_USERNAME`, `YOUR_DATABASE_PASSWORD`, and `YOUR_ACCESS_TOKEN_SECRET` with actual values.
