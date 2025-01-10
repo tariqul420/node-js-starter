@@ -12,8 +12,6 @@ const port = process.env.PORT || 3000;
 app.use(cors({
     origin: [
         'http://localhost:5173',
-        'https://service-orbit.web.app',
-        'https://service-orbit.firebaseapp.com'
     ],
     credentials: true,
 }))
@@ -62,7 +60,7 @@ async function run() {
             const user = await usersCollection.findOne(query)
             const isAdmin = user?.role === 'admin';
             if (!user || !isAdmin) {
-                return res.status(403).send({ message: 'forbidden access. only access admin!' });
+                return res.status(403).send({ message: 'forbidden access. || only access admin!' });
             }
             next()
         }
@@ -116,8 +114,8 @@ async function run() {
             }
         })
 
-        // Check admin
-        app.get('/users/admin/:email', verifyToken, verifyAdmin, async (req, res) => {
+        // get user role
+        app.get('/users/role/:email', verifyToken, async (req, res) => {
             try {
                 const email = req.params.email
 
@@ -125,10 +123,12 @@ async function run() {
                     return res.status(403).send({ message: 'forbidden access' });
                 }
 
-                res.send({ admin: true })
+                const result = await usersCollection.findOne({ email })
+
+                res.send({ role: result?.role })
             } catch (error) {
-                console.error('Check Admin:', error.message)
-                res.status(500).send({ error: 'Failed to check admin' })
+                console.error('Check Role:', error.message)
+                res.status(500).send({ error: 'Failed to check role' })
             }
         })
 
