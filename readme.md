@@ -70,5 +70,7 @@ Before running the server, ensure you have the following installed:
    DATABASE_USERNAME=YOUR_DATABASE_USERNAME
    DATABASE_PASSWORD=YOUR_DATABASE_PASSWORD
    ACCESS_TOKEN_SECRET=YOUR_ACCESS_TOKEN_SECRET
+   NODEMAILER_USER=YOUR_NODEMAILER_USER
+   NODEMAILER_PASS=YOUR_NODEMAILER_USER
    ```
    > **Note:** Replace the `index.js` file's `your_mongo_connection_string` and the `.env` file's `YOUR_DATABASE_USERNAME`, `YOUR_DATABASE_PASSWORD`, and `YOUR_ACCESS_TOKEN_SECRET` with actual values.
