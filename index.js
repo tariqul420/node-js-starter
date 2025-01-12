@@ -43,12 +43,12 @@ const sendEmail = (emailAddress, emailData) => {
         };
     })
 
-    // transporter.sendMail()
+    // create mail body
     const mailBody = {
         form: process.env.NODEMAILER_USER,
         to: emailAddress,
         subject: emailData?.subject,
-        html: `<div>${emailData?.message}</div>`,
+        html: emailData?.message,
     }
 
     // send email
@@ -156,20 +156,51 @@ async function run() {
                     sendEmail(user?.email, {
                         subject: "Welcome to [Your Website Name]!",
                         message: `
-                          <p>Hi ${user.name},</p>
-                          <p>Thank you for joining our community. We're thrilled to have you on board!</p>
-                          <p>Here are a few things you can do to get started:</p>
-                          <ul>
-                            <li><strong>Explore:</strong> Discover features and services tailored to your needs.</li>
-                            <li><strong>Update your profile:</strong> Personalize your experience by updating your profile <a href="[Profile Link]">here</a>.</li>
-                            <li><strong>Get support:</strong> Need help? Visit our <a href="[Support Link]">Support Center</a>.</li>
-                          </ul>
-                          <p>If you have any questions, feel free to reply to this email or contact us directly at [Support Email].</p>
-                          <p>Happy exploring!</p>
-                          <p>Best regards,</p>
-                          <p>The [Your Website Name] Team</p>
-                          <hr>
-                          <p style="font-size: 12px; color: #888;">If you did not sign up for this account, please ignore this email or contact us immediately at [Support Email].</p>
+                        <div style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f3f4f6; padding: 20px;">
+                        <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <!-- Header -->
+                            <div style="background-color: #007bff; color: #ffffff; padding: 20px; text-align: center;">
+                            <h1 style="margin: 0; font-size: 24px;">Welcome to [Your Website Name]!</h1>
+                            </div>
+
+                            <!-- Body -->
+                            <div style="padding: 20px; color: #333;">
+                            <p style="font-size: 16px; margin-bottom: 20px;">Hi ${user.name},</p>
+                            <p style="font-size: 16px; margin-bottom: 20px;">
+                                Thank you for joining [Your Website Name]! We are delighted to have you on board and are excited to help you make the most of your experience.
+                            </p>
+                            <p style="font-size: 16px; font-weight: bold; margin-bottom: 20px;">Here’s how to get started:</p>
+                            <ol style="font-size: 16px; color: #333; padding-left: 20px;">
+                                <li style="margin-bottom: 10px;">
+                                <strong style="color: #007bff;">Explore:</strong> Discover features and services tailored just for you.
+                                </li>
+                                <li style="margin-bottom: 10px;">
+                                <strong style="color: #007bff;">Update Your Profile:</strong> Personalize your experience by updating your profile 
+                                <a href="[Profile Link]" style="color: #007bff; text-decoration: none;">here</a>.
+                                </li>
+                                <li style="margin-bottom: 10px;">
+                                <strong style="color: #007bff;">Get Support:</strong> Need help? Visit our 
+                                <a href="[Support Link]" style="color: #007bff; text-decoration: none;">Support Center</a>.
+                                </li>
+                            </ol>
+                            <p style="font-size: 16px; margin-bottom: 20px;">
+                                If you have any questions or need assistance, feel free to reply to this email or reach out to us at 
+                                <a href="mailto:[Support Email]" style="color: #007bff; text-decoration: none;">[Support Email]</a>.
+                            </p>
+                            <p style="font-size: 16px; margin-bottom: 20px;">We’re here to help you succeed!</p>
+                            <p style="font-size: 16px; margin-top: 30px;">Best regards,</p>
+                            <p style="font-size: 16px; font-weight: bold;">The [Your Website Name] Team</p>
+                            </div>
+
+                            <!-- Footer -->
+                            <div style="background-color: #f9f9f9; padding: 10px 20px; text-align: center; font-size: 12px; color: #777;">
+                            <p style="margin: 0;">If you didn’t sign up for this account, please ignore this email or contact us at 
+                                <a href="mailto:[Support Email]" style="color: #007bff; text-decoration: none;">[Support Email]</a>.
+                            </p>
+                            <p style="margin: 10px 0;">&copy; ${new Date().getFullYear()} [Your Website Name]. All rights reserved.</p>
+                            </div>
+                        </div>
+                        </div>
                         `
                     })
                 }
