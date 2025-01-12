@@ -1,22 +1,65 @@
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-const app = express();
+const morgan = require('morgan');
+const nodemailer = require("nodemailer");
 
-require('dotenv').config();
+const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors({
-    origin: [
-        'http://localhost:5173',
-    ],
+const corsOptions = {
+    origin: ["http://localhost:5173"],
     credentials: true,
-}))
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(cookieParser())
+app.use(morgan('dev'))
+
+// Send mail using node mailer
+const sendEmail = (emailAddress, emailData) => {
+    // create email transporter
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.NODEMAILER_USER,
+            pass: process.env.NODEMAILER_PASS,
+        }
+    })
+
+    // Verify connection
+    transporter.verify((error, success) => {
+        if (error) {
+            return console.error(error)
+        } else {
+            console.log('Transporter is ready to emails.', success)
+        };
+    })
+
+    // transporter.sendMail()
+    const mailBody = {
+        form: process.env.NODEMAILER_USER,
+        to: emailAddress,
+        subject: emailData?.subject,
+        html: `<div>${emailData?.message}</div>`,
+    }
+
+    // send email
+    transporter.sendMail(mailBody, (error, info) => {
+        if (error) {
+            return console.error(error)
+        } else {
+            console.log('Email Sent: ' + info?.response)
+        }
+    })
+}
 
 const uri = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@tariqul-islam.mchvj.mongodb.net/?retryWrites=true&w=majority&appName=TARIQUL-ISLAM`;
 
@@ -107,6 +150,30 @@ async function run() {
                 }
 
                 const result = await usersCollection.insertOne(user)
+
+                // send email when first login
+                if (result?.insertedId) {
+                    sendEmail(user?.email, {
+                        subject: "Welcome to [Your Website Name]!",
+                        message: `
+                          <p>Hi ${user.name},</p>
+                          <p>Thank you for joining our community. We're thrilled to have you on board!</p>
+                          <p>Here are a few things you can do to get started:</p>
+                          <ul>
+                            <li><strong>Explore:</strong> Discover features and services tailored to your needs.</li>
+                            <li><strong>Update your profile:</strong> Personalize your experience by updating your profile <a href="[Profile Link]">here</a>.</li>
+                            <li><strong>Get support:</strong> Need help? Visit our <a href="[Support Link]">Support Center</a>.</li>
+                          </ul>
+                          <p>If you have any questions, feel free to reply to this email or contact us directly at [Support Email].</p>
+                          <p>Happy exploring!</p>
+                          <p>Best regards,</p>
+                          <p>The [Your Website Name] Team</p>
+                          <hr>
+                          <p style="font-size: 12px; color: #888;">If you did not sign up for this account, please ignore this email or contact us immediately at [Support Email].</p>
+                        `
+                    })
+                }
+
                 res.send(result)
             } catch (error) {
                 console.error('Post User:', error.message)
