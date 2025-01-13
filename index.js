@@ -212,6 +212,22 @@ async function run() {
             }
         })
 
+        // Update User
+        app.patch('/users/:email', async (req, res) => {
+            const email = req.params.email
+            const userData = req.body
+
+            const updateDoc = {
+                $set: {
+                    displayName: userData?.displayName,
+                    photoURL: userData?.photoUrl
+                }
+            }
+
+            const result = await usersCollection.updateOne({ email }, updateDoc)
+            res.send(result)
+        })
+
         // get user role
         app.get('/users/role/:email', verifyToken, async (req, res) => {
             try {
