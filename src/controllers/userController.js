@@ -1,10 +1,11 @@
-import { getDb } from '../config/dbConnect.js';
+import { getDbConnect } from '../config/dbConnect';
+
+const db = getDbConnect();
+const usersCollection = db.collection('Users');
 
 export const createUser = async (req, res) => {
   try {
     const userData = req.body;
-    const db = getDb();
-    const usersCollection = db.collection('Users');
 
     // Check if user already exists
     const isExist = await usersCollection.findOne({ email: userData.email });
@@ -29,8 +30,6 @@ export const updateUser = async (req, res) => {
   try {
     const email = req.params.email;
     const userData = req.body;
-    const db = getDb();
-    const usersCollection = db.collection('Users');
 
     const updateDoc = {
       $set: {
@@ -50,8 +49,6 @@ export const updateUser = async (req, res) => {
 export const getUserRole = async (req, res) => {
   try {
     const email = req.params.email;
-    const db = getDb();
-    const usersCollection = db.collection('Users');
 
     if (req?.user?.email !== email) {
       return res.status(403).send({ message: 'Forbidden access' });
@@ -69,8 +66,6 @@ export const getUserRole = async (req, res) => {
 export const getUserByEmail = async (req, res) => {
   try {
     const email = req.params.email;
-    const db = getDb();
-    const usersCollection = db.collection('Users');
 
     const user = await usersCollection.findOne({ email });
 

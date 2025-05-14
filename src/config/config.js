@@ -15,7 +15,7 @@ const config = {
     password: process.env.DATABASE_PASSWORD || '',
   },
   cookie: {
-    accessTokenSecret: process.env.ACCESS_TOKEN_SECRET || '',
+    tokenSecret: process.env.ACCESS_TOKEN_SECRET || '',
     tokenName: 'token',
   },
 };

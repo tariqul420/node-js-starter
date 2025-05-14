@@ -4,12 +4,12 @@ import config from '../config/config.js';
 export const createToken = async (req, res) => {
   try {
     const userInfo = req.body;
-    const token = jwt.sign(userInfo, config.cookie.accessTokenSecret, {
+    const token = jwt.sign(userInfo, config.cookie.tokenSecret, {
       expiresIn: '1d',
     });
 
     res
-      .cookie('token', token, {
+      .cookie(config.cookie.tokenName, token, {
         httpOnly: true,
         secure: config.nodeEnv === 'production',
         sameSite: config.nodeEnv === 'production' ? 'none' : 'strict',
@@ -24,7 +24,7 @@ export const createToken = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     res
-      .clearCookie('token', {
+      .clearCookie(config.cookie.tokenName, {
         httpOnly: true,
         secure: config.nodeEnv === 'production',
         sameSite: config.nodeEnv === 'production' ? 'none' : 'strict',

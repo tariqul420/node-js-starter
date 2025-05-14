@@ -26,9 +26,9 @@ export const dbConnect = async () => {
   }
 };
 
-export const getDb = () => {
+export const getDbConnect = () => {
   if (!db) {
-    throw new Error('Database not initialized. Call connectToDatabase first');
+    throw new Error('Database not initialized. Call dbConnect first');
   }
   return db;
 };
