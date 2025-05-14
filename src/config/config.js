@@ -10,7 +10,10 @@ const config = {
     credentials: true,
   },
   mongodb: {
-    uri: `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@tariqul-islam.mkjrj.mongodb.net/?retryWrites=true&w=majority&appName=TARIQUL-ISLAM`,
+    uri: process.env.MONGODB_DATABASE_URL?.replace(
+      '<db_password>',
+      process.env.DATABASE_PASSWORD,
+    ),
     username: process.env.DATABASE_USERNAME || '',
     password: process.env.DATABASE_PASSWORD || '',
   },
