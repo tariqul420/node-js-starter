@@ -17,7 +17,15 @@ app.use(morgan('dev'));
 
 // Root route
 app.get('/', (req, res) => {
-  res.send('Hello Programmer. How Are You? This Server For No-Name Website ❤️');
+  res.json({
+    message: 'Welcome to the API',
+    status: 'Server is running',
+    version: '1.0.0',
+    endpoints: {
+      users: '/api/user',
+      auth: '/api/jwt',
+    },
+  });
 });
 
 // Routes

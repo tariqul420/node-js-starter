@@ -9,7 +9,7 @@ import { verifyToken } from '../middleware/auth.middleware.js';
 const router = express.Router();
 
 // Create a new user
-router.post('/', createUser);
+router.post('/create', createUser);
 
 // Update user
 router.patch('/:email', updateUser);

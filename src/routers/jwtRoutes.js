@@ -4,9 +4,9 @@ import { createToken, logout } from '../controllers/jwtController.js';
 const router = express.Router();
 
 // Create JWT token
-router.post('/', createToken);
+router.post('/create', createToken);
 
 // Logout
-router.post('/logout', logout);
+router.post('/remove', logout);
 
 export default router;

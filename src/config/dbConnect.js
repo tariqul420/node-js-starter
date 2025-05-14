@@ -4,11 +4,9 @@ import config from './config.js';
 let db;
 let client;
 
-const uri = config.mongodb.uri;
-
 export const dbConnect = async () => {
   try {
-    client = new MongoClient(uri, {
+    client = new MongoClient(config.mongodb.uri, {
       serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
@@ -17,12 +15,12 @@ export const dbConnect = async () => {
     });
 
     await client.connect();
-    db = client.db('DatabaseName');
     console.log('☘️  You successfully connected to MongoDB!');
+    db = client.db('DatabaseName'); // Replace with your actual database name
     return db;
   } catch (error) {
     console.error('MongoDB connection error:', error);
-    process.exit(1);
+    throw error;
   }
 };
 
