@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/userSchema.js';
+import config from '../config/config.js';
+import { getDb } from '../config/dbConnect.js';
 
 const verifyToken = async (req, res, next) => {
   const token = req.cookies.token;
@@ -8,7 +9,7 @@ const verifyToken = async (req, res, next) => {
   }
 
   // Verify Token
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
+  jwt.verify(token, config.cookie.accessTokenSecret, (error, decoded) => {
     if (error) {
       return res.status(401).send({ error: 'Unauthorized access' });
     }
@@ -25,7 +26,9 @@ const verifyAdmin = async (req, res, next) => {
   }
 
   try {
-    const user = await User.findOne({ email });
+    const db = getDb();
+    const usersCollection = db.collection('Users');
+    const user = await usersCollection.findOne({ email });
     const isAdmin = user?.role === 'admin';
 
     if (!user || !isAdmin) {

@@ -10,11 +10,13 @@ const config = {
     credentials: true,
   },
   mongodb: {
-    uri: process.env.MONGODB_DATABASE_URL || '',
-    password: process.env.MONGODB_DATABASE_PASSWORD || '',
+    uri: `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@tariqul-islam.mkjrj.mongodb.net/?retryWrites=true&w=majority&appName=TARIQUL-ISLAM`,
+    username: process.env.DATABASE_USERNAME || '',
+    password: process.env.DATABASE_PASSWORD || '',
   },
   cookie: {
     accessTokenSecret: process.env.ACCESS_TOKEN_SECRET || '',
+    tokenName: 'token',
   },
 };
 
