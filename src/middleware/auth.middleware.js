@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
-import client from '../config/dbConnect.js';
+import client from '../config/database.js';
 
 const usersCollection = client.db('bd_name').collection('users');
 
