@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   createUser,
   getUserRole,
@@ -6,7 +6,7 @@ import {
 } from '../controllers/userController.js';
 import { verifyToken } from '../middleware/auth.middleware.js';
 
-const router = express.Router();
+const router = Router();
 
 // Create a new user
 router.post('/create', createUser);

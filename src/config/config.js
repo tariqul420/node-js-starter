@@ -10,12 +10,8 @@ const config = {
     credentials: true,
   },
   mongodb: {
-    uri: process.env.MONGODB_DATABASE_URL?.replace(
-      '<db_password>',
-      process.env.DATABASE_PASSWORD,
-    ),
-    username: process.env.DATABASE_USERNAME || '',
-    password: process.env.DATABASE_PASSWORD || '',
+    uri: process.env.MONGODB_DATABASE_URL,
+    password: process.env.MONGODB_DATABASE_PASSWORD || '',
   },
   cookie: {
     tokenSecret: process.env.ACCESS_TOKEN_SECRET || '',

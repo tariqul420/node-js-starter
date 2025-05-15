@@ -1,7 +1,7 @@
-import express from 'express';
+import { Router } from 'express';
 import { createToken, logout } from '../controllers/jwtController.js';
 
-const router = express.Router();
+const router = Router();
 
 // Create JWT token
 router.post('/create', createToken);

@@ -32,6 +32,15 @@ app.get('/', (req, res) => {
 app.use('/api/user', userRoutes);
 app.use('/api/jwt', jwtRoutes);
 
+// Unhandled Routes
+app.all('*', (req, res, next) => {
+  try {
+    return `Can't Find this URL (${req.originalUrl}) on this server!`;
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Global error handler (should be after routes)
 app.use(errorHandler);
 

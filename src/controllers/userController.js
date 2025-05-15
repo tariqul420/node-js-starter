@@ -1,7 +1,6 @@
-import { getDbConnect } from '../config/dbConnect';
+import client from '../config/dbConnect.js';
 
-const db = getDbConnect();
-const usersCollection = db.collection('Users');
+const usersCollection = client.db('bd_name').collection('users');
 
 export const createUser = async (req, res) => {
   try {

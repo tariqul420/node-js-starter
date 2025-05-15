@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
-import { getDbConnect } from '../config/dbConnect.js';
+import client from '../config/dbConnect.js';
 
-const db = getDbConnect();
-const usersCollection = db.collection('Users');
+const usersCollection = client.db('bd_name').collection('users');
 
 const verifyToken = async (req, res, next) => {
   const token = req.cookies.token;

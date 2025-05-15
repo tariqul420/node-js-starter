@@ -1,39 +1,25 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import config from './config.js';
 
-let db;
-let client;
+// Check if MongoDB URI exists
+if (!config.mongodb.uri) {
+  console.error(
+    'MongoDB URI is not defined. Please check your environment variables.',
+  );
+  process.exit(1);
+}
 
-export const dbConnect = async () => {
-  try {
-    client = new MongoClient(config.mongodb.uri, {
-      serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-      },
-    });
+const uri = config.mongodb.uri.replace(
+  '<db_password>',
+  config.mongodb.password,
+);
 
-    await client.connect();
-    console.log('☘️  You successfully connected to MongoDB!');
-    db = client.db('DatabaseName'); // Replace with your actual database name
-    return db;
-  } catch (error) {
-    console.error('MongoDB connection error:', error);
-    throw error;
-  }
-};
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
 
-export const getDbConnect = () => {
-  if (!db) {
-    throw new Error('Database not initialized. Call dbConnect first');
-  }
-  return db;
-};
-
-export const closeConnection = async () => {
-  if (client) {
-    await client.close();
-    console.log('MongoDB connection closed');
-  }
-};
+export default client;
